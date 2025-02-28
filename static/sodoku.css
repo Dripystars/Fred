@@ -68,7 +68,7 @@ button:active {
     transform: scale(0.98);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1600px) {
     body {
         padding: 10px;
     }
