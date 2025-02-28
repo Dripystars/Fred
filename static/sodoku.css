@@ -79,8 +79,8 @@ button:active {
     }
 
     #board {
-        grid-template-columns: repeat(9, 40px);
-        grid-template-rows: repeat(9, 40px);
+        grid-template-columns: repeat(9);
+        grid-template-rows: repeat(9);
         gap: 1px;
         padding: 10px;
     }
