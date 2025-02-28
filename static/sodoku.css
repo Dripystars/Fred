@@ -79,15 +79,15 @@ button:active {
     }
 
     #board {
-        grid-template-columns: repeat(9);
-        grid-template-rows: repeat(9);
+        grid-template-columns: repeat(9, 30px);
+        grid-template-rows: repeat(9, 30px);
         gap: 1px;
         padding: 10px;
     }
 
     input {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         font-size: 18px;
     }
 
