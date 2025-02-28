@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const comments = [
         "Your getting old",
-        "I suck at coding, you suck a solving",
+        "Correct! - Not",
         "Try again, or not!",
         "Solving this doesn't give your browny points",
         "You Infuriated Yet?",
