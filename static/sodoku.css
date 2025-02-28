@@ -67,3 +67,33 @@ button:hover {
 button:active {
     transform: scale(0.98);
 }
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    #board {
+        grid-template-columns: repeat(9, 40px);
+        grid-template-rows: repeat(9, 40px);
+        gap: 1px;
+        padding: 10px;
+    }
+
+    input {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    button {
+        margin: 10px;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
