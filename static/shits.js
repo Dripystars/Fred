@@ -14,30 +14,27 @@ class Sudoku {
     }
 
     static solve(board) {
-        // Iterate through all cells (row-major order)
         for (let row = 0; row < 9; row++) {
             for (let col = 0; col < 9; col++) {
                 if (board[row][col] === 0) {
-                    // Randomize the order of numbers to try
                     let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
                     for (let i = numbers.length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
                         [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
                     }
 
-                    // Try each number randomly
                     for (let num of numbers) {
                         if (this.isValid(board, row, col, num)) {
                             board[row][col] = num;
                             if (this.solve(board)) return true;
-                            board[row][col] = 0; // backtrack if no solution
+                            board[row][col] = 0;
                         }
                     }
-                    return false; // if no valid number can be placed
+                    return false;
                 }
             }
         }
-        return true; // board is solved
+        return true;
     }
 
     static generateCompleteBoard() {
@@ -76,7 +73,7 @@ class Sudoku {
     }
 
     static removeNumbers(board, attempts = 50) {
-        board = board.map(row => [...row]); // Copy the board to avoid modifying the original.
+        board = board.map(row => [...row]);
 
         let count = 0;
         while (attempts > 0 && count < 81) {
@@ -91,7 +88,7 @@ class Sudoku {
             board[row][col] = 0;
 
             if (!this.isUniqueSolution(board)) {
-                board[row][col] = backup; // Restore the number if no unique solution
+                board[row][col] = backup;
                 attempts--;
             }
 
@@ -148,17 +145,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 cell.value = board[row][col] !== 0 ? board[row][col] : "";
                 cell.dataset.row = row;
                 cell.dataset.col = col;
-
+                
+                let index = row * 9 + col;
+                if ((col + 1) % 3 === 0 && col !== 8) cell.style.borderRight = "3px solid black";
+                if ((row + 1) % 3 === 0 && row !== 8) cell.style.borderBottom = "3px solid black";
+    
                 if (board[row][col] !== 0) {
                     cell.disabled = true;
+                    cell.style.fontWeight = "bold";
                 } else {
                     cell.addEventListener("input", (e) => validateInput(e, row, col));
                 }
-
+    
                 boardElement.appendChild(cell);
             }
         }
     }
+    
 
     function validateInput(e, row, col) {
         let val = parseInt(e.target.value);

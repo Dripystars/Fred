@@ -17,12 +17,12 @@ h1 {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
-    gap: 2px;
+    gap: 0; 
     margin: 20px auto;
-    width: 90vw; /* Adjust dynamically */
-    max-width: 360px; /* Prevents it from being too large */
+    width: 360px;
+    height: 360px;
     background: #fff;
-    padding: 10px;
+    padding: 5px;
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     border: 3px solid #222;
@@ -31,19 +31,41 @@ h1 {
 input {
     width: 100%;
     height: 100%;
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
-    border: 2px solid #bbb;
+    border: 1px solid #bbb;
     background-color: #fff;
-    transition: all 0.3s;
     outline: none;
-    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s;
 }
 
 input:focus {
     border-color: #007bff;
     background-color: #eef7ff;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+input:nth-child(3n) {
+    border-right: 3px solid black;
+}
+input:nth-child(n+19):nth-child(-n+27),
+input:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 3px solid black;
+}
+
+input:nth-child(9n) {
+    border-right: none;
+}
+input:nth-child(n+73) {
+    border-bottom: none;
+}
+
+input:disabled {
+    background-color: #ddd;
+    color: #222;
+    font-weight: bold;
+    cursor: not-allowed;
 }
 
 button {
@@ -69,7 +91,6 @@ button:active {
     transform: scale(0.98);
 }
 
-/* Mobile Fix */
 @media (max-width: 600px) {
     body {
         padding: 10px;
@@ -83,12 +104,12 @@ button:active {
     #board {
         width: 95vw;
         max-width: 330px;
+        height: 330px;
         padding: 5px;
-        gap: 2px;
     }
 
     input {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     button {
