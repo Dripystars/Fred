@@ -14,21 +14,30 @@ class Sudoku {
     }
 
     static solve(board) {
+        // Iterate through all cells (row-major order)
         for (let row = 0; row < 9; row++) {
             for (let col = 0; col < 9; col++) {
                 if (board[row][col] === 0) {
-                    for (let num = 1; num <= 9; num++) {
+                    // Randomize the order of numbers to try
+                    let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+                    for (let i = numbers.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+                    }
+
+                    // Try each number randomly
+                    for (let num of numbers) {
                         if (this.isValid(board, row, col, num)) {
                             board[row][col] = num;
                             if (this.solve(board)) return true;
-                            board[row][col] = 0;
+                            board[row][col] = 0; // backtrack if no solution
                         }
                     }
-                    return false;
+                    return false; // if no valid number can be placed
                 }
             }
         }
-        return true;
+        return true; // board is solved
     }
 
     static generateCompleteBoard() {
@@ -66,22 +75,29 @@ class Sudoku {
         return this.countSolutions(board) === 1;
     }
 
-    static removeNumbers(board, attempts = 5) {
-        board = board.map(row => [...row]);
-        while (attempts > 0) {
+    static removeNumbers(board, attempts = 50) {
+        board = board.map(row => [...row]); // Copy the board to avoid modifying the original.
+
+        let count = 0;
+        while (attempts > 0 && count < 81) {
             let row = Math.floor(Math.random() * 9);
             let col = Math.floor(Math.random() * 9);
             while (board[row][col] === 0) {
                 row = Math.floor(Math.random() * 9);
                 col = Math.floor(Math.random() * 9);
             }
+
             let backup = board[row][col];
             board[row][col] = 0;
-            if (!this.isUniqueSolution(board.map(row => [...row]))) {
-                board[row][col] = backup;
+
+            if (!this.isUniqueSolution(board)) {
+                board[row][col] = backup; // Restore the number if no unique solution
                 attempts--;
             }
+
+            count++;
         }
+
         return board;
     }
 
@@ -90,6 +106,7 @@ class Sudoku {
         return this.removeNumbers(completeBoard);
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const boardElement = document.getElementById("board");
